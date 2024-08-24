@@ -6,7 +6,7 @@ namespace Backend.Interfaces
 	{
 		Task<ICollection<List>> GetListsAsync();
 		Task<List> GetListByIdAsync(int id);
-
+		Task<List> CreateListAsync(List newList);
 
 
 	}

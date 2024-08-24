@@ -1,4 +1,5 @@
 ﻿using Backend.Interfaces;
+using Backend.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,10 +36,15 @@ namespace Backend.Controllers
 			return Ok(list);
 		}
 
-		//[HttpPost]
-		//public async Task<IActionResult> GetAllLists()
-		//{
-		//	return Ok();
-		//}
+		[HttpPost]
+		public async Task<IActionResult> CreateList(string name)
+		{
+			List list1 = new List();
+			list1.Name = name;
+
+			var createdList = await _listRepository.CreateListAsync(list1);
+
+			return Ok(createdList);
+		}
 	}
 }

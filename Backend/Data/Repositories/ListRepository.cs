@@ -10,7 +10,7 @@ namespace Backend.Data.Repositories
 
 		public ListRepository(DataContext context)
         {
-			this._context = context;
+			_context = context;
 		}
 
 		public async Task<ICollection<List>> GetListsAsync()
@@ -23,6 +23,12 @@ namespace Backend.Data.Repositories
 			return await _context.Lists.Include(l => l.ListNotes).FirstOrDefaultAsync(l => l.Id == id);
 		}
 
+		public async Task<List> CreateListAsync(List newList)
+		{
+			await _context.Lists.AddAsync(newList);
+			await _context.SaveChangesAsync();
 
+			return newList;
+		}
 	}
 }
