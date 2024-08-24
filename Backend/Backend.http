@@ -1,6 +1,16 @@
-@Backend_HostAddress = http://localhost:5062
+@Backend_HostAddress = https://localhost:7003/api
 
-GET {{Backend_HostAddress}}/weatherforecast/
-Accept: application/json
+
+
+Get {{Backend_HostAddress}}/List
 
 ###
+
+GET {{Backend_HostAddress}}/List/2
+
+###
+
+GET {{Backend_HostAddress}}/List/3
+
+
+

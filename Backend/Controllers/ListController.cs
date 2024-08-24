@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Backend.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
@@ -7,16 +8,37 @@ namespace Backend.Controllers
 	[ApiController]
 	public class ListController : ControllerBase
 	{
-		[HttpGet]
+		private readonly IListRepository _listRepository;
+
+		public ListController(IListRepository listRepository)
+        {
+			this._listRepository = listRepository;
+		}
+
+        [HttpGet]
 		public async Task<IActionResult> GetAllLists()
 		{
-			return Ok();
+			var allLists = await _listRepository.GetListsAsync();
+
+			if(allLists == null) 
+				return NotFound();
+			return Ok(allLists);
 		}
 
 		[HttpGet("{id:int}")]
-		public async Task<IActionResult> GetList()
+		public async Task<IActionResult> GetList(int id)
 		{
-			return Ok();
+			var list = await _listRepository.GetListByIdAsync(id);
+
+			if (list == null)
+				return NotFound();
+			return Ok(list);
 		}
+
+		//[HttpPost]
+		//public async Task<IActionResult> GetAllLists()
+		//{
+		//	return Ok();
+		//}
 	}
 }
