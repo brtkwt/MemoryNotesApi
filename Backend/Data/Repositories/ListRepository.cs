@@ -30,5 +30,33 @@ namespace Backend.Data.Repositories
 
 			return newList;
 		}
+
+		public async Task<List> UpdateListAsync(int id, string newName)
+		{
+			var existingList = await _context.Lists.FindAsync(id);
+
+			if (existingList == null)
+				return null;
+
+			existingList.Name = newName;
+
+			_context.Update(existingList);
+			await _context.SaveChangesAsync();
+
+			return await _context.Lists.Include(l => l.ListNotes).FirstOrDefaultAsync(l => l.Id == id);
+		}
+
+		public async Task<List> DeleteListAsync(int id)
+		{
+			var existingList = await _context.Lists.FindAsync(id);
+
+			if(existingList == null)
+				return null;
+
+			_context.Lists.Remove(existingList);
+			await _context.SaveChangesAsync();
+
+			return existingList;
+		}
 	}
 }

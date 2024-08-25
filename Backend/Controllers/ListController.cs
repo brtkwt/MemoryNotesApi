@@ -1,4 +1,5 @@
-﻿using Backend.Interfaces;
+﻿using Backend.Dtos;
+using Backend.Interfaces;
 using Backend.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,10 @@ namespace Backend.Controllers
 
 			if(allLists == null) 
 				return NotFound();
+
+			//ListDto listDto = new ListDto();
+			//listDto.Id = 
+
 			return Ok(allLists);
 		}
 
@@ -45,6 +50,28 @@ namespace Backend.Controllers
 			var createdList = await _listRepository.CreateListAsync(list1);
 
 			return Ok(createdList);
+		}
+
+		[HttpPatch("{id:int}")]
+		public async Task<IActionResult> UpdateListName(int id, string newName)
+		{
+			var updatedList = await _listRepository.UpdateListAsync(id, newName);
+
+			if (updatedList == null)
+				return NotFound();
+
+			return Ok(updatedList);
+		}
+
+		[HttpDelete("{id:int}")]
+		public async Task<IActionResult> DeleteList(int id)
+		{
+			var existingList = await _listRepository.DeleteListAsync(id);
+
+			if( existingList == null)
+				return NotFound();
+
+			return NoContent();
 		}
 	}
 }
