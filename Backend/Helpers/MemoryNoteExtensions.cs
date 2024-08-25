@@ -29,7 +29,7 @@ namespace Backend.Helpers
 			};
 		}
 
-		public static List<MemoryNoteReturnDto> ToListOfMemoryNotes(this ICollection<MemoryNote> memoryNotes)
+		public static List<MemoryNoteReturnDto> ToListOfMemoryNoteDtos(this ICollection<MemoryNote> memoryNotes)
 		{
 			return memoryNotes.Select(memoryNotes => memoryNotes.ToReturnDto()).ToList();
 		}

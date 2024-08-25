@@ -1,7 +1,4 @@
-﻿using Backend.Dtos;
-using Backend.Interfaces;
-using Backend.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Backend.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Backend.Helpers;
 
@@ -44,7 +41,7 @@ namespace Backend.Controllers
 		{
 			var createdList = await _listRepository.CreateListAsync(name);
 
-			return Ok(createdList);
+			return Ok(createdList.ToListDto());
 		}
 
 		[HttpPatch("{id:int}")]
@@ -55,7 +52,7 @@ namespace Backend.Controllers
 			if (updatedList == null)
 				return NotFound();
 
-			return Ok(updatedList);
+			return Ok(updatedList.ToListDto());
 		}
 
 		[HttpDelete("{id:int}")]

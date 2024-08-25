@@ -20,10 +20,10 @@ namespace Backend.Data.Repositories
 		}
 
 		// do zrobienia query
-		//public async Task<ICollection<MemoryNote>> GetMemoryNotesForListIdAsync()
-		//{
-
-		//}
+		public async Task<ICollection<MemoryNote>> GetMemoryNotesForListIdAsync(int id)
+		{
+			return await _context.MemoryNotes.Where(m => m.ListId == id).ToListAsync();
+		}
 
 		public async Task<MemoryNote> CreateMemoryNoteAsync(MemoryNoteCreateDto memoryNoteCreateDto)
 		{

@@ -24,6 +24,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 
 builder.Services.AddScoped<IListRepository, ListRepository>();
+builder.Services.AddScoped<IMemoryNoteRepository, MemoryNoteRepository>();
 
 var app = builder.Build();
 
