@@ -1,16 +1,40 @@
 @Backend_HostAddress = https://localhost:7003/api
 
 
-
+// Get all lists
 Get {{Backend_HostAddress}}/List
 
 ###
 
+// Get one list by id (2)
 GET {{Backend_HostAddress}}/List/2
 
 ###
 
-GET {{Backend_HostAddress}}/List/3
+// Get one list by id - NotFound()
+GET {{Backend_HostAddress}}/List/200
+
+###
+
+// Add new list
+Post {{Backend_HostAddress}}/List
+Content-Type: application/json
+
+"test_test"
 
 
+###
+
+// Update list's name
+Patch {{Backend_HostAddress}}/List/7
+Content-Type: application/json
+
+"test_test_test_test x4"
+
+###
+
+// Delete list by id
+delete {{Backend_HostAddress}}/List/7
+
+###
 

@@ -3,6 +3,7 @@ using Backend.Interfaces;
 using Backend.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Backend.Helpers;
 
 namespace Backend.Controllers
 {
@@ -25,10 +26,7 @@ namespace Backend.Controllers
 			if(allLists == null) 
 				return NotFound();
 
-			//ListDto listDto = new ListDto();
-			//listDto.Id = 
-
-			return Ok(allLists);
+			return Ok(allLists.ToListofListDtos());
 		}
 
 		[HttpGet("{id:int}")]
@@ -38,11 +36,11 @@ namespace Backend.Controllers
 
 			if (list == null)
 				return NotFound();
-			return Ok(list);
+			return Ok(list.ToListDto());
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> CreateList(string name)
+		public async Task<IActionResult> CreateList([FromBody] string name)
 		{
 			List list1 = new List();
 			list1.Name = name;
@@ -53,7 +51,7 @@ namespace Backend.Controllers
 		}
 
 		[HttpPatch("{id:int}")]
-		public async Task<IActionResult> UpdateListName(int id, string newName)
+		public async Task<IActionResult> UpdateListName(int id, [FromBody] string newName)
 		{
 			var updatedList = await _listRepository.UpdateListAsync(id, newName);
 

@@ -15,12 +15,12 @@ namespace Backend.Data.Repositories
 
 		public async Task<ICollection<List>> GetListsAsync()
 		{
-			return await _context.Lists.Include(l => l.ListNotes).ToListAsync();
+			return await _context.Lists.ToListAsync();
 		}
 
 		public async Task<List> GetListByIdAsync(int id)
 		{
-			return await _context.Lists.Include(l => l.ListNotes).FirstOrDefaultAsync(l => l.Id == id);
+			return await _context.Lists.FirstOrDefaultAsync(l => l.Id == id);
 		}
 
 		public async Task<List> CreateListAsync(List newList)
@@ -43,7 +43,7 @@ namespace Backend.Data.Repositories
 			_context.Update(existingList);
 			await _context.SaveChangesAsync();
 
-			return await _context.Lists.Include(l => l.ListNotes).FirstOrDefaultAsync(l => l.Id == id);
+			return await _context.Lists.FirstOrDefaultAsync(l => l.Id == id);
 		}
 
 		public async Task<List> DeleteListAsync(int id)
