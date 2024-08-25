@@ -23,8 +23,11 @@ namespace Backend.Data.Repositories
 			return await _context.Lists.FirstOrDefaultAsync(l => l.Id == id);
 		}
 
-		public async Task<List> CreateListAsync(List newList)
+		public async Task<List> CreateListAsync(string name)
 		{
+			List newList = new List();
+			newList.Name = name;
+
 			await _context.Lists.AddAsync(newList);
 			await _context.SaveChangesAsync();
 
@@ -43,7 +46,7 @@ namespace Backend.Data.Repositories
 			_context.Update(existingList);
 			await _context.SaveChangesAsync();
 
-			return await _context.Lists.FirstOrDefaultAsync(l => l.Id == id);
+			return existingList;
 		}
 
 		public async Task<List> DeleteListAsync(int id)

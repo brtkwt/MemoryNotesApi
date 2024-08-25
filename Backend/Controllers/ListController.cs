@@ -42,10 +42,7 @@ namespace Backend.Controllers
 		[HttpPost]
 		public async Task<IActionResult> CreateList([FromBody] string name)
 		{
-			List list1 = new List();
-			list1.Name = name;
-
-			var createdList = await _listRepository.CreateListAsync(list1);
+			var createdList = await _listRepository.CreateListAsync(name);
 
 			return Ok(createdList);
 		}

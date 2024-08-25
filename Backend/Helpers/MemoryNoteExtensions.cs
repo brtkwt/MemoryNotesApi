@@ -9,7 +9,7 @@ namespace Backend.Helpers
 		{
 			return new MemoryNote
 			{
-				Name = memoryNoteCreateDto.Name,
+				Name = memoryNoteCreateDto.Name ?? "",
 				Description = memoryNoteCreateDto.Description,
 				Priority = memoryNoteCreateDto.Priority,
 				ListId = memoryNoteCreateDto.ListId,
