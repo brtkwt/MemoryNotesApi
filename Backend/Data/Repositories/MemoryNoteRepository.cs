@@ -27,6 +27,11 @@ namespace Backend.Data.Repositories
 
 		public async Task<MemoryNote> CreateMemoryNoteAsync(MemoryNoteCreateDto memoryNoteCreateDto)
 		{
+			var check = await _context.Lists.FindAsync(memoryNoteCreateDto.ListId);
+
+			if (check == null)
+				return null;
+
 			MemoryNote newMemoryNote = new MemoryNote()
 			{
 				Name = memoryNoteCreateDto.Name,

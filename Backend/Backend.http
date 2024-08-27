@@ -22,7 +22,6 @@ Content-Type: application/json
 
 "test_test"
 
-
 ###
 
 // Update list's name
@@ -38,3 +37,42 @@ delete {{Backend_HostAddress}}/List/7
 
 ###
 
+
+
+// Get memorynote by id
+GET {{Backend_HostAddress}}/MemoryNote/12
+
+###
+
+// Get list of memorynotes for list id
+GET {{Backend_HostAddress}}/MemoryNote/List/1
+
+###
+
+// Create new memorynote
+POST {{Backend_HostAddress}}/MemoryNote
+Content-Type: application/json
+
+{
+    "name":"test2",
+    "description":"test2",
+    "priority":"2",
+    "listId":"1"
+}
+
+###
+
+// Update memorynote
+PATCH {{Backend_HostAddress}}/MemoryNote/12
+Content-Type: application/json
+
+{
+    "name":"test3",
+    "description":"test3",
+    "priority":"3"
+}
+
+###
+
+// Delete memorynote
+DELETE {{Backend_HostAddress}}/MemoryNote/16

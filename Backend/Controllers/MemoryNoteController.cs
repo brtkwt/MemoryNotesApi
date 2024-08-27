@@ -42,6 +42,9 @@ namespace Backend.Controllers
 		{
 			var createdMemoryNote = await _memoryNoteRepository.CreateMemoryNoteAsync(memoryNoteCreateDto);
 
+			if (createdMemoryNote == null)
+				return BadRequest("List with this Id was not found!");
+
 			return Ok(createdMemoryNote.ToReturnDto());
 		}
 

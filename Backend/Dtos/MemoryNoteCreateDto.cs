@@ -12,7 +12,7 @@ namespace Backend.Dtos
 		[Required, Range(1, 3)]
 		public int Priority { get; set; }
 
-		[Required]
+		[Required, Range(1, int.MaxValue)]
 		public int ListId { get; set; }
 	}
 }
