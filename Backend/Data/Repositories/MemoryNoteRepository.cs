@@ -1,4 +1,5 @@
 ﻿using Backend.Dtos;
+using Backend.Helpers;
 using Backend.Interfaces;
 using Backend.Models;
 using Microsoft.EntityFrameworkCore;
@@ -20,9 +21,39 @@ namespace Backend.Data.Repositories
 		}
 
 		// do zrobienia query
-		public async Task<ICollection<MemoryNote>> GetMemoryNotesForListIdAsync(int id)
+		public async Task<ICollection<MemoryNote>> GetMemoryNotesAsync(MemoryNoteQuery query)
 		{
-			return await _context.MemoryNotes.Where(m => m.ListId == id).ToListAsync();
+			var notes = _context.MemoryNotes.AsQueryable();
+
+			if (query.ListId != null)
+			{
+				notes = notes.Where( n => n.ListId == query.ListId);
+			}
+
+			switch (query.SortBy)
+			{
+				case "priorityAsc":
+					notes = notes.OrderBy(n => n.Priority);
+					break;
+
+				case "priorityDesc":
+					notes = notes.OrderByDescending(n => n.Priority);
+					break;
+
+				case "dateAsc":
+					notes = notes.OrderBy(n => n.DateTime);
+					break;
+
+				case "dateDesc":
+					notes = notes.OrderByDescending(n => n.DateTime);
+					break;
+
+				default:
+					notes = notes.OrderBy(n => n.Id);
+					break;
+			}
+
+			return await notes.ToListAsync();
 		}
 
 		public async Task<MemoryNote> CreateMemoryNoteAsync(MemoryNoteCreateDto memoryNoteCreateDto)

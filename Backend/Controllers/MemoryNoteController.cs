@@ -26,10 +26,10 @@ namespace Backend.Controllers
 			return Ok(memoryNote.ToReturnDto());
 		}
 
-        [HttpGet("list/{id:int}")]
-		public async Task<IActionResult> GetMemoryNotesForListId(int id)
+        [HttpGet]
+		public async Task<IActionResult> GetMemoryNotes([FromQuery] MemoryNoteQuery query)
 		{
-			var memoryNotes = await _memoryNoteRepository.GetMemoryNotesForListIdAsync(id);
+			var memoryNotes = await _memoryNoteRepository.GetMemoryNotesAsync(query);
 
 			if (memoryNotes == null)
 				return NotFound();
